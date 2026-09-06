@@ -10,4 +10,5 @@ pluginManagement {
 }
 
 rootProject.name = 'voicechat'
-include('api', 'common', 'common-client', 'fabric', 'fabric:api-stub', 'neoforge', 'forge')
+// This branch targets the stable NeoForge 1.21.1 release.
+include('api', 'common', 'common-client', 'neoforge')

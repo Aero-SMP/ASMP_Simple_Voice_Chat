@@ -1,4 +1,5 @@
 plugins {
+    id 'base'
     id 'com.gradleup.shadow' version "${shadow_version}" apply false
     id 'de.maxhenkel.cursegradle' version "${cursegradle_version}" apply false
     id 'com.modrinth.minotaur' version "${minotaur_version}" apply false
@@ -6,31 +7,11 @@ plugins {
     id 'fabric-loom' version "${fabric_loom_version}" apply false
 }
 
-apply from: "https://raw.githubusercontent.com/henkelmax/mod-gradle-scripts/${mod_gradle_script_version}/taskutils.gradle"
-
-tasks.register('01-publishQuilt', GradleBuild) {
-    group = 'voicechat'
-    dir = 'quilt'
-    tasks = ['uploadMod']
+// Keep the default build focused on the deployable NeoForge artifact.
+tasks.named('build') {
+    dependsOn ':neoforge:build'
 }
 
-tasks.register('02-publishForge') {
-    group = 'voicechat'
-    doLast {
-        runGradleTasks(['common:clean', 'common-client:clean', 'forge:clean'], ['forge:curseforge', 'forge:modrinth', 'forge:modUpdate'])
-    }
-}
-
-tasks.register('03-publishNeoForge') {
-    group = 'voicechat'
-    doLast {
-        runGradleTasks(['common:clean', 'common-client:clean', 'neoforge:clean'], ['neoforge:curseforge', 'neoforge:modrinth', 'neoforge:modUpdate'])
-    }
-}
-
-tasks.register('04-publishFabric') {
-    group = 'voicechat'
-    doLast {
-        runGradleTasks(['common:clean', 'common-client:clean', 'fabric:clean', 'fabric:api-stub:clean'], ['fabric:curseforge', 'fabric:modrinth', 'fabric:modUpdate'])
-    }
+tasks.named('clean') {
+    dependsOn ':api:clean', ':common:clean', ':common-client:clean', ':neoforge:clean'
 }

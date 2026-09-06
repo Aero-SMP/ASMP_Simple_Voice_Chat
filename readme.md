@@ -1,3 +1,20 @@
+# ASMP Simple Voice Chat — NeoForge 1.21.1
+
+This branch is based on stable Simple Voice Chat **2.6.22**, upstream commit
+`b38dfc71a` (August 8, 2026). Later upstream changes are not included.
+
+Requires JDK 21. Build from the repository root:
+
+```sh
+./gradlew clean build
+```
+
+The deployable mod is `neoforge/build/libs/voicechat-neoforge-1.21.1-2.6.22.jar`.
+Only NeoForge and its shared source/API projects are included in this branch's
+Gradle build. GitHub Actions also builds and uploads the NeoForge JAR.
+
+---
+
 [Modrinth](https://modrinth.com/mod/simple-voice-chat)
 |
 [CurseForge](https://legacy.curseforge.com/minecraft/mc-mods/simple-voice-chat)
