@@ -8,6 +8,9 @@ repositories {
 }
 
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+
     implementation "de.maxhenkel.configbuilder:configbuilder:${configbuilder_version}"
     implementation "de.maxhenkel.opus4j:opus4j:${opus4j_version}"
     implementation "org.concentus:Concentus:${concentus_version}"
@@ -24,4 +27,8 @@ sourceSets {
         compileClasspath += sourceSets.template.output
         runtimeClasspath += sourceSets.template.output
     }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }

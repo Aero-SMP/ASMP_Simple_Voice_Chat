@@ -13,6 +13,15 @@ The deployable mod is `neoforge/build/libs/voicechat-neoforge-1.21.1-2.6.22.jar`
 Only NeoForge and its shared source/API projects are included in this branch's
 Gradle build. GitHub Actions also builds and uploads the NeoForge JAR.
 
+## Voice chat port
+
+In `config/voicechat/voicechat-server.properties`, leave `port=` blank to use
+Minecraft's server port plus 100 on each start (for example, 25565 → 25665).
+The config stays blank, so changing the Minecraft port also changes the voice
+port after restarting. Set `port=31000` to keep an explicit fixed port.
+Existing numeric values are preserved; clear the old value to enable automatic
+selection. Legacy `-1` (same port) and `0` (available port) still work.
+
 ---
 
 [Modrinth](https://modrinth.com/mod/simple-voice-chat)

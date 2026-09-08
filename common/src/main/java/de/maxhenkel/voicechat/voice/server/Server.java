@@ -1,6 +1,7 @@
 package de.maxhenkel.voicechat.voice.server;
 
 import de.maxhenkel.voicechat.Voicechat;
+import de.maxhenkel.voicechat.config.VoiceChatPort;
 import de.maxhenkel.voicechat.api.RawUdpPacket;
 import de.maxhenkel.voicechat.api.VoicechatSocket;
 import de.maxhenkel.voicechat.api.events.SoundPacketEvent;
@@ -48,12 +49,10 @@ public class Server extends Thread {
     public Server(MinecraftServer server) {
         dedicated = server instanceof DedicatedServer;
         if (dedicated) {
-            int configPort = Voicechat.SERVER_CONFIG.voiceChatPort.get();
-            if (configPort < 0) {
-                Voicechat.LOGGER.info("Using the Minecraft servers port as voice chat port");
-                port = server.getPort();
-            } else {
-                port = configPort;
+            String configPort = Voicechat.SERVER_CONFIG.voiceChatPort.get();
+            port = VoiceChatPort.resolve(configPort, server.getPort());
+            if (configPort.isBlank()) {
+                Voicechat.LOGGER.info("Using Minecraft server port {} + 100 as voice chat port: {}", server.getPort(), port);
             }
         } else {
             port = 0;

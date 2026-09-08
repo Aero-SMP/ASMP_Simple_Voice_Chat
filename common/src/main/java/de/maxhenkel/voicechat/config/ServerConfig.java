@@ -10,7 +10,7 @@ import de.maxhenkel.voicechat.voice.common.AudioUtils;
 
 public class ServerConfig {
 
-    public ConfigEntry<Integer> voiceChatPort;
+    public ConfigEntry<String> voiceChatPort;
     public ConfigEntry<String> voiceChatBindAddress;
     public ConfigEntry<Double> voiceChatDistance;
     public ConfigEntry<Double> whisperDistance;
@@ -34,15 +34,7 @@ public class ServerConfig {
 
         builder.header(String.format("%s server config v%s", CommonCompatibilityManager.INSTANCE.getModName(), CommonCompatibilityManager.INSTANCE.getModVersion()));
 
-        voiceChatPort = builder
-                .integerEntry("port", 24454, -1, 65535,
-                        "The port number to use for the voice chat communication.",
-                        "Audio packets are always transmitted via the UDP protocol on the port number",
-                        "specified here, independently of other networking used for the game server.",
-                        "Set this to '-1' to use the same port number that is used by the Minecraft server.",
-                        "However, it is strongly recommended NOT to use the same port number because UDP on",
-                        "it is also used by default for the server query. Doing so may crash the server!"
-                );
+        voiceChatPort = VoiceChatPort.createEntry(builder);
         voiceChatBindAddress = builder
                 .stringEntry("bind_address", "",
                         "The server IP address to bind the voice chat to",
